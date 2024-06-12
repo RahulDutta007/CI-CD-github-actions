@@ -26,13 +26,18 @@ jobs:
         with:
           name: dragon-text-file
           path: ./dragon.txt
-          
+
   second-job:
     needs: first_job
     runs-on: ubuntu-latest
     steps:
-      - name: Checout
+      - name: Checkout
         uses: actions/checkout@v4.1.6
+      
+      - name: Download artifact v3
+        uses: actions/download-artifact@v3
+        with:
+          name: dragon-text-file
 
       - name: Display Dragon
         run: cat dragon.txt
