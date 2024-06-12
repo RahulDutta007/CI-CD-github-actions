@@ -14,12 +14,25 @@ jobs:
           echo "My first github actions job"
           ls
           cat README.md
+
+      - name: Installing Coway
+        run: sudo apt-get install coway -y
       
       - name: Generate ASCII Artwork
         run: cowsay -f dragon "RAWRRR" > dragon.txt
+
+      - name: Upload Dragon text file
+        uses: actions/upload-artifact@v3
+        with:
+          name: dragon-text-file
+          path: ./dragon.txt
+          
   second-job:
     needs: first_job
     runs-on: ubuntu-latest
     steps:
       - name: Checout
         uses: actions/checkout@v4.1.6
+
+      - name: Display Dragon
+        run: cat dragon.txt
